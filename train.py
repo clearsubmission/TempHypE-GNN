@@ -1,7 +1,6 @@
 # train.py
 """
-Minimal training loop for link prediction with negative sampling
-on temporal snapshots. Uses BCEWithLogitsLoss over positive/negative edges.
+Minimal training loop for link prediction with negative sampling. Uses BCEWithLogitsLoss over positive/negative edges.
 """
 import os
 from pathlib import Path
@@ -24,7 +23,7 @@ def sample_negative_edges(num_nodes: int, pos_edge_index: torch.Tensor, num_neg:
     return torch.stack([src, dst], dim=0)
 
 def train(
-    csv_path: str = "data/demo_triples.csv",
+    csv_path: str = "data/triples.csv",
     epochs: int = 50,
     lr: float = 1e-3,
     embed_dim: int = 64,
@@ -79,5 +78,5 @@ def train(
     print(f"Saved checkpoint to {ckpt_path} and loss curve to results/loss_plot.png")
 
 if __name__ == "__main__":
-    # For a quick demo, you can generate a small CSV with data_processing.py main
+    # CSV with data_processing.py main
     train()
