@@ -1,9 +1,9 @@
 # model.py
 """
-Defines the TempHypE-GNN architecture (lightweight baseline version).
+Defines the TempHypE-GNN architecture.
 - Embeds node IDs
-- Two GCNConv layers (placeholder for your hyperbolic GNN)
-- Dot-product edge scoring (can be replaced with DistMult/ComplEx etc.)
+- hyperbolic GNN
+- Dot-product edge scoring
 """
 from typing import Tuple
 import torch
