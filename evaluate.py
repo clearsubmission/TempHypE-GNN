@@ -1,6 +1,6 @@
 # evaluate.py
 """
-Evaluation script with sampled ranking metrics (MRR, Hits@K).
+Evaluation: ranking metrics (MRR, Hits@K).
 For each positive edge, sample K negatives; compute the rank of the positive among them.
 This is a lightweight approximation to full ranking and works for quick checks.
 """
@@ -50,7 +50,7 @@ def sampled_ranking_metrics(model, dataset, K: int = 50, device="cpu") -> Dict[s
         "Hits@10": hits10 / max(1, count),
     }
 
-def evaluate(csv_path="data/demo_triples.csv", ckpt_path="models/checkpoint.pt", device=None):
+def evaluate(csv_path="data/triples.csv", ckpt_path="models/checkpoint.pt", device=None):
     device = device or ("cuda" if torch.cuda.is_available() else "cpu")
     ds = TempHypEDataset(csv_path, sep=",", has_header=True, time_unit="day")
 
@@ -58,7 +58,7 @@ def evaluate(csv_path="data/demo_triples.csv", ckpt_path="models/checkpoint.pt",
     state = torch.load(ckpt_path, map_location=device)
     model.load_state_dict(state)
 
-    metrics = sampled_ranking_metrics(model, ds, K=50, device=device)
+    metrics = ranking_metrics(model, ds, K=50, device=device)
     print({k: round(v, 4) for k, v in metrics.items()})
 
 if __name__ == "__main__":
