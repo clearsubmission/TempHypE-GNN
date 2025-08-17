@@ -4,7 +4,7 @@ from pathlib import Path
 import torch
 from src.data_processing import TempHypEDataset
 
-def _write_demo(tmp_csv="data/demo_triples.csv"):
+def _write_demo(tmp_csv="data/triples.csv"):
     p = Path(tmp_csv)
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text("head,rel,tail,time\n"
@@ -15,7 +15,7 @@ def _write_demo(tmp_csv="data/demo_triples.csv"):
     return str(p)
 
 def test_data_loading():
-    csv_path = _write_demo()
+    csv_path = _write()
     ds = TempHypEDataset(csv_path, sep=",", has_header=True)
     assert len(ds) >= 1
     g = ds[0]
